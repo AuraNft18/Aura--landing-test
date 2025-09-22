@@ -59,18 +59,6 @@
       padding-top: 8px;
       padding-bottom: 8px;
     }
-     style="text-align:right; margin: 10px 0;">
-  <button id="darkModeToggle" style="
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.4);
-    border-radius: 6px;
-    padding: 6px 10px;
-    color: white;
-    cursor: pointer;
-    font-size: 14px;
-  ">
-    🌙 Dark Mode
-  </button>
     .logo {
       font-weight: 800;
       letter-spacing: 0.12em;
@@ -312,26 +300,5 @@ body.dark-mode {
       Built with passion — Aura
     </footer>
   </div>
-  <script>
-  const darkToggle = document.getElementById("darkModeToggle");
-  const body = document.body;
-
-  // Aplica o modo guardado, se existir
-  if (localStorage.getItem("dark-mode") === "enabled") {
-    body.classList.add("dark-mode");
-    darkToggle.textContent = "☀️ Light Mode";
-  }
-
-  darkToggle.addEventListener("click", () => {
-    body.classList.toggle("dark-mode");
-    if (body.classList.contains("dark-mode")) {
-      localStorage.setItem("dark-mode", "enabled");
-      darkToggle.textContent = "☀️ Light Mode";
-    } else {
-      localStorage.setItem("dark-mode", "disabled");
-      darkToggle.textContent = "🌙 Dark Mode";
-    }
-  });
-</script>
 </body>
 </html>
