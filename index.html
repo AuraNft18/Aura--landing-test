@@ -135,20 +135,24 @@
       max-width: 560px;
     }
     .social-card {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 14px;
-      border-radius: 16px;
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      text-decoration: none;
-      color: var(--link);
-      font-weight: 600;
-      transition: transform 0.16s ease, background 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.18);
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;           /* ocupa toda a coluna da grid */
+  min-height: 48px;
+  min-width: 120px;
+  padding: 16px;
+  margin: 4px;           /* garante espaço entre botões mesmo lado a lado */
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  text-decoration: none;
+  color: var(--link);
+  font-weight: 600;
+  text-align: center;
+  transition: transform 0.16s ease, background 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+}
     .social-card:hover { transform: translateY(-2px); background: rgba(255,255,255,0.12); }
     .social-card svg {
       width: 20px;
