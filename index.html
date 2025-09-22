@@ -1,5 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"><div style="text-align:right; margin: 10px 0;">
+  <button id="darkModeToggle" style="
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 6px;
+    padding: 6px 10px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+  ">
+    🌙 Dark Mode
+  </button>
+</div>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -214,6 +226,32 @@
       white-space: nowrap; border: 0; padding: 0; margin: -1px;
     }
   </style>
+  :root {
+  --bg-start: #6a0dad;
+  --bg-end: #9b30ff;
+  --text: #f5f3ff;
+  --muted: #dcd6ff;
+  --btn: #ffffff;
+  --btn-text: #6a0dad;
+  --link: #ffffff;
+  --card: rgba(255,255,255,0.08);
+  --card-border: rgba(255,255,255,0.12);
+  --glow: 0 0 40px rgba(155, 48, 255, 0.55);
+}
+
+body.dark-mode {
+  --bg-start: #0e0e0e;
+  --bg-end: #1a1a1a;
+  --text: #f8f8f8;
+  --muted: #aaaaaa;
+  --btn: #2c2c2c;
+  --btn-text: #ffffff;
+  --link: #ffffff;
+  --card: rgba(255,255,255,0.05);
+  --card-border: rgba(255,255,255,0.15);
+  --glow: 0 0 30px rgba(255,255,255,0.1);
+}
+
 </head>
 <body>
   <div class="container">
@@ -273,5 +311,26 @@
       Built with passion — Aura
     </footer>
   </div>
+  <script>
+  const darkToggle = document.getElementById("darkModeToggle");
+  const body = document.body;
+
+  // Aplica o modo guardado, se existir
+  if (localStorage.getItem("dark-mode") === "enabled") {
+    body.classList.add("dark-mode");
+    darkToggle.textContent = "☀️ Light Mode";
+  }
+
+  darkToggle.addEventListener("click", () => {
+    body.classList.toggle("dark-mode");
+    if (body.classList.contains("dark-mode")) {
+      localStorage.setItem("dark-mode", "enabled");
+      darkToggle.textContent = "☀️ Light Mode";
+    } else {
+      localStorage.setItem("dark-mode", "disabled");
+      darkToggle.textContent = "🌙 Dark Mode";
+    }
+  });
+</script>
 </body>
 </html>
