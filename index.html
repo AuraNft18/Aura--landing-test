@@ -1,115 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Daniel Couto — Spark Your Aura</title>
   <meta name="description" content="Get to know Daniel Couto and Aura — a motivational clothing brand. Follow on YouTube, TikTok, and X. Visit the Aura store." />
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg-1: #6a0dad;
-      --bg-2: #9b30ff;
-      --surface: rgba(255,255,255,0.08);
-      --surface-border: rgba(255,255,255,0.12);
-      --text: #f5f3ff;
-      --muted: #dbd5ff;
-      --button: #ffffff;
-      --button-text: #5b12a8;
-      --chip: rgba(255,255,255,0.14);
-      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+    /* ===== THEME TOKENS (light base) ===== */
+    :root{
+      --bg-1:#6a0dad; --bg-2:#9b30ff;
+      --surface:rgba(255,255,255,.08);
+      --surface-border:rgba(255,255,255,.12);
+      --text:#f5f3ff; --muted:#dbd5ff;
+      --button:#fff; --button-text:#5b12a8;
+      --chip:rgba(255,255,255,.14);
+      --shadow:0 20px 60px rgba(0,0,0,.35);
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg-1: #0f0f13;
-        --bg-2: #1a1824;
-        --surface: rgba(255,255,255,0.06);
-        --surface-border: rgba(255,255,255,0.16);
-        --text: #f8f8ff;
-        --muted: #bcb7d9;
-        --button: #2c2c36;
-        --button-text: #ffffff;
-        --chip: rgba(255,255,255,0.12);
-        --shadow: 0 16px 48px rgba(0,0,0,0.55);
-      }
-    }
-    /* classe usada pelo botão manual */
-    .dark {
-      --bg-1: #0f0f13;
-      --bg-2: #1a1824;
-      --surface: rgba(255,255,255,0.06);
-      --surface-border: rgba(255,255,255,0.16);
-      --text: #f8f8ff;
-      --muted: #bcb7d9;
-      --button: #2c2c36;
-      --button-text: #ffffff;
-      --chip: rgba(255,255,255,0.12);
-      --shadow: 0 16px 48px rgba(0,0,0,0.55);
+    html[data-theme="dark"]{
+      --bg-1:#0f0f13; --bg-2:#1a1824;
+      --surface:rgba(255,255,255,.06);
+      --surface-border:rgba(255,255,255,.16);
+      --text:#f8f8ff; --muted:#bcb7d9;
+      --button:#2c2c36; --button-text:#fff;
+      --chip:rgba(255,255,255,.12);
+      --shadow:0 16px 48px rgba(0,0,0,.55);
     }
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--text);
-      background: radial-gradient(900px 600px at 70% -10%, rgba(255,255,255,0.12), transparent 60%),
-                  linear-gradient(140deg, var(--bg-1), var(--bg-2));
-      transition: background 300ms ease, color 300ms ease;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      /* só um gradiente aqui (sem linhas) */
+      background:linear-gradient(140deg,var(--bg-1),var(--bg-2));
+      transition:background .3s ease,color .3s ease;
+      position:relative; overflow-x:hidden;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
     }
-    .wrap { max-width: 1040px; margin: 0 auto; padding: 20px; }
+    /* brilho suave extra – sem “seam” no mobile */
+    body::before{
+      content:""; position:fixed; inset:-25% -25% -25% -25%;
+      background:radial-gradient(900px 600px at 70% -10%,rgba(255,255,255,.12),transparent 60%);
+      pointer-events:none; z-index:-1; transform:translateZ(0);
+      will-change:transform; backface-visibility:hidden;
+    }
+
+    .wrap{max-width:1040px;margin:0 auto;padding:20px}
 
     /* header */
-    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; }
-    .brand { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--surface-border); background: var(--chip); letter-spacing: .14em; font-weight: 800; text-transform: uppercase; font-size: 12px; }
-    .tools { display: flex; gap: 10px; align-items: center; }
-    .toggle{ background: var(--chip); color: var(--text); border: 1px solid var(--surface-border); padding: 8px 12px; border-radius: 10px; font-weight: 600; cursor: pointer; }
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
+    .brand{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;border:1px solid var(--surface-border);background:var(--chip);letter-spacing:.14em;font-weight:800;text-transform:uppercase;font-size:12px}
+    .tools{display:flex;gap:10px;align-items:center}
+    .toggle{background:var(--chip);color:var(--text);border:1px solid var(--surface-border);padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-tap-highlight-color:transparent}
 
-    /* seletor de línguas – sempre visível */
-    .select{
-      appearance: none; -webkit-appearance: none; -moz-appearance: none;
-      background-color: #ffffff; color: #2b2b2b;
-      border: 1px solid var(--surface-border);
-      padding: 8px 12px; border-radius: 10px; font-weight: 600; cursor: pointer;
-      min-width: 110px;
-    }
-    .select option{ background-color:#ffffff; color:#2b2b2b; }
-    .dark .select{ background-color:#2c2c36; color:#ffffff; border-color:var(--surface-border); }
-    .dark .select option{ background-color:#2c2c36; color:#ffffff; }
+    /* language select visível */
+    .select{appearance:none;-webkit-appearance:none;-moz-appearance:none;background:#fff;color:#2b2b2b;border:1px solid var(--surface-border);padding:10px 12px;border-radius:10px;font-weight:600;cursor:pointer;min-width:110px}
+    .select option{background:#fff;color:#2b2b2b}
+    html[data-theme="dark"] .select{background:#2c2c36;color:#fff;border-color:var(--surface-border)}
+    html[data-theme="dark"] .select option{background:#2c2c36;color:#fff}
 
     /* hero */
-    .hero { text-align: center; padding: clamp(40px, 10vw, 96px) 0 36px; opacity: 0; transform: translateY(8px); animation: fadeUp .6s ease .05s forwards; }
-    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-    .eyebrow { display: inline-block; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
-    h1 { margin: 0 0 12px; font-size: clamp(34px, 7.8vw, 72px); line-height: 1.05; font-weight: 800; text-shadow: 0 8px 24px rgba(0,0,0,.28); }
-    .lead { margin: 0 auto; max-width: 760px; color: #efe9ff; font-size: clamp(16px, 2.2vw, 20px); line-height: 1.7; }
-    .cta { margin-top: 26px; display: inline-flex; gap: 12px; flex-wrap: wrap; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; padding: 14px 20px; border-radius: 16px; font-weight: 800; border: 1px solid var(--surface-border); transition: transform .16s ease, box-shadow .2s ease, background .2s ease; box-shadow: var(--shadow); }
-    .btn.primary { background: var(--button); color: var(--button-text); }
-    .btn.ghost { background: transparent; color: var(--text); }
-    .btn:hover { transform: translateY(-2px); }
+    .hero{text-align:center;padding:clamp(40px,10vw,96px) 0 36px;opacity:0;transform:translateY(8px);animation:fadeUp .6s ease .05s forwards}
+    @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+    .eyebrow{display:inline-block;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+    h1{margin:0 0 12px;font-size:clamp(34px,7.8vw,72px);line-height:1.05;font-weight:800;text-shadow:0 8px 24px rgba(0,0,0,.28)}
+    .lead{margin:0 auto;max-width:760px;color:#efe9ff;font-size:clamp(16px,2.2vw,20px);line-height:1.7}
+    .cta{margin-top:26px;display:inline-flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;padding:14px 20px;border-radius:16px;font-weight:800;border:1px solid var(--surface-border);transition:transform .16s ease,box-shadow .2s ease,background .2s ease;box-shadow:var(--shadow)}
+    .btn.primary{background:var(--button);color:var(--button-text)}
+    .btn.ghost{background:transparent;color:var(--text)}
+    .btn:hover{transform:translateY(-2px)}
 
-    /* cards / sections */
-    .card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 22px; box-shadow: var(--shadow); }
-    .section { padding: 22px; }
-    .section h2 { margin: 0 0 8px; font-size: clamp(22px, 3.2vw, 28px); }
-    .section p { margin: 0; color: #f1ebff; line-height: 1.8; }
+    /* cards */
+    .card{background:var(--surface);border:1px solid var(--surface-border);border-radius:22px;box-shadow:var(--shadow)}
+    .section{padding:22px}
+    .section h2{margin:0 0 8px;font-size:clamp(22px,3.2vw,28px)}
+    .section p{margin:0;color:#f1ebff;line-height:1.8}
 
     /* socials grid */
-    .socials { margin-top: 18px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .social { display: flex; align-items: center; justify-content: center; padding: 16px; border-radius: 16px; background: var(--chip); border: 1px solid var(--surface-border); text-decoration: none; color: var(--text); font-weight: 700; box-shadow: var(--shadow); min-height: 56px; }
+    .socials{margin-top:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .social{display:flex;align-items:center;justify-content:center;padding:16px;border-radius:16px;background:var(--chip);border:1px solid var(--surface-border);text-decoration:none;color:var(--text);font-weight:700;box-shadow:var(--shadow);min-height:56px}
 
     /* motivation */
-    .center { text-align: center; }
-    .m-title { font-size: clamp(26px, 5.8vw, 42px); margin: 0 0 10px; }
-    footer { text-align: center; padding: 36px 0 28px; color: var(--muted); font-size: 12px; }
+    .center{text-align:center}
+    .m-title{font-size:clamp(26px,5.8vw,42px);margin:0 0 10px}
+    footer{text-align:center;padding:36px 0 28px;color:var(--muted);font-size:12px}
 
     /* responsive */
-    @media (max-width: 720px) {
-      .wrap { padding: 16px; }
-      .cta { width: 100%; }
-      .btn { flex: 1 1 auto; width: 100%; }
-      .socials { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width:720px){
+      .wrap{padding:16px}
+      .cta{width:100%}
+      .btn{flex:1 1 auto;width:100%}
+      .socials{grid-template-columns:repeat(2,1fr)}
+      .toggle,.select{padding:12px 14px}
     }
   </style>
 </head>
@@ -118,15 +105,13 @@
     <header>
       <div class="brand">AURA</div>
       <div class="tools">
-        <!-- seletor de línguas -->
         <select id="langSelect" class="select" aria-label="Language">
           <option value="en">🇬🇧 EN</option>
           <option value="pt">🇵🇹 PT</option>
           <option value="es">🇪🇸 ES</option>
           <option value="fr">🇫🇷 FR</option>
         </select>
-        <!-- dark mode -->
-        <button id="darkToggle" class="toggle">🌙 Dark</button>
+        <button id="darkToggle" class="toggle" type="button">🌙 Dark</button>
       </div>
     </header>
 
@@ -165,133 +150,80 @@
   </div>
 
   <script>
-    // ----- DARK MODE (toggle + remember) -----
+    /* ===== DARK MODE (mobile-friendly) ===== */
+    const htmlEl = document.documentElement;
     const darkBtn = document.getElementById('darkToggle');
-    const savedTheme = localStorage.getItem('aura-theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.body.classList.add('dark');
-    const setDarkLabel = () => darkBtn.textContent = document.body.classList.contains('dark') ? '☀️ Light' : '🌙 Dark';
-    setDarkLabel();
-    darkBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      localStorage.setItem('aura-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-      setDarkLabel();
-    });
 
-    // ----- I18N (EN, PT, ES, FR) -----
+    (function initTheme(){
+      const saved = localStorage.getItem('aura-theme');
+      const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = saved || (sysDark ? 'dark' : 'light');
+      htmlEl.setAttribute('data-theme', theme);
+      updateDarkLabel();
+    })();
+
+    function updateDarkLabel(){
+      const isDark = htmlEl.getAttribute('data-theme') === 'dark';
+      darkBtn.textContent = isDark ? '☀️ Light' : '🌙 Dark';
+    }
+    darkBtn.addEventListener('click', ()=>{
+      const next = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', next);
+      localStorage.setItem('aura-theme', next);
+      updateDarkLabel();
+    }, {passive:true});
+
+    /* ===== LANG SWITCH (EN/PT/ES/FR) ===== */
     const t = {
-      en: {
-        eyebrow: "Spark Your Aura",
-        heroTitle: "Hi, I'm Daniel Couto",
-        heroLead: "I'm a football player and the creator of Aura — a motivational clothing brand built to inspire you to chase your goals every day.",
-        visitAuraBtn: "Visit Aura",
-        mySocialsBtn: "My Socials",
-        aboutTitle: "About me",
-        aboutText: "I play football and I’m building Aura as a way to share discipline, style, and motivation with my community. Here you’ll find my official links — follow along and let’s grow together.",
-        youtubeBtn: "YouTube",
-        tiktokBtn: "TikTok",
-        twitterBtn: "X / Twitter",
-        storeBtn: "Visit Store",
-        mTitle: "Everything Starts With You",
-        mText: "Focus on the work, stay humble, and keep moving forward. Your energy, your rhythm, your style — that’s your Aura.",
-        footerText: "Built with passion — Aura"
-      },
-      pt: {
-        eyebrow: "Spark Your Aura",
-        heroTitle: "Olá, eu sou o Daniel Couto",
-        heroLead: "Sou jogador de futebol e criador da Aura — uma marca de roupa motivacional feita para te inspirar a correr atrás dos teus objetivos todos os dias.",
-        visitAuraBtn: "Visitar a Aura",
-        mySocialsBtn: "Minhas Redes",
-        aboutTitle: "Sobre mim",
-        aboutText: "Jogo futebol e estou a construir a Aura como uma forma de partilhar disciplina, estilo e motivação com a minha comunidade. Aqui encontras os meus links oficiais — segue e vamos crescer juntos.",
-        youtubeBtn: "YouTube",
-        tiktokBtn: "TikTok",
-        twitterBtn: "X / Twitter",
-        storeBtn: "Visitar Loja",
-        mTitle: "Tudo Começa Contigo",
-        mText: "Foca no trabalho, mantém-te humilde e continua a avançar. A tua energia, o teu ritmo, o teu estilo — essa é a tua Aura.",
-        footerText: "Feito com paixão — Aura"
-      },
-      es: {
-        eyebrow: "Spark Your Aura",
-        heroTitle: "Hola, soy Daniel Couto",
-        heroLead: "Soy jugador de fútbol y creador de Aura — una marca de ropa motivacional diseñada para inspirarte a perseguir tus metas cada día.",
-        visitAuraBtn: "Visitar Aura",
-        mySocialsBtn: "Mis Redes",
-        aboutTitle: "Sobre mí",
-        aboutText: "Juego al fútbol y estoy construyendo Aura como una forma de compartir disciplina, estilo y motivación con mi comunidad. Aquí encontrarás mis enlaces oficiales — sígueme y crezcamos juntos.",
-        youtubeBtn: "YouTube",
-        tiktokBtn: "TikTok",
-        twitterBtn: "X / Twitter",
-        storeBtn: "Visitar Tienda",
-        mTitle: "Todo Empieza Contigo",
-        mText: "Concéntrate en el trabajo, mantente humilde y sigue avanzando. Tu energía, tu ritmo, tu estilo — esa es tu Aura.",
-        footerText: "Hecho con pasión — Aura"
-      },
-      fr: {
-        eyebrow: "Spark Your Aura",
-        heroTitle: "Salut, je suis Daniel Couto",
-        heroLead: "Je suis footballeur et créateur d’Aura — une marque de vêtements motivationnelle conçue pour t’inspirer à poursuivre tes objectifs chaque jour.",
-        visitAuraBtn: "Visiter Aura",
-        mySocialsBtn: "Mes Réseaux",
-        aboutTitle: "À propos de moi",
-        aboutText: "Je joue au football et je développe Aura pour partager discipline, style et motivation avec ma communauté. Ici tu trouveras mes liens officiels — suis-moi et grandissons ensemble.",
-        youtubeBtn: "YouTube",
-        tiktokBtn: "TikTok",
-        twitterBtn: "X / Twitter",
-        storeBtn: "Visiter la Boutique",
-        mTitle: "Tout Commence Avec Toi",
-        mText: "Concentre-toi sur le travail, reste humble et continue d’avancer. Ton énergie, ton rythme, ton style — c’est ton Aura.",
-        footerText: "Fait avec passion — Aura"
-      }
+      en:{eyebrow:"Spark Your Aura",heroTitle:"Hi, I'm Daniel Couto",heroLead:"I'm a football player and the creator of Aura — a motivational clothing brand built to inspire you to chase your goals every day.",visitAuraBtn:"Visit Aura",mySocialsBtn:"My Socials",aboutTitle:"About me",aboutText:"I play football and I’m building Aura as a way to share discipline, style, and motivation with my community. Here you’ll find my official links — follow along and let’s grow together.",youtubeBtn:"YouTube",tiktokBtn:"TikTok",twitterBtn:"X / Twitter",storeBtn:"Visit Store",mTitle:"Everything Starts With You",mText:"Focus on the work, stay humble, and keep moving forward. Your energy, your rhythm, your style — that’s your Aura.",footerText:"Built with passion — Aura"},
+      pt:{eyebrow:"Spark Your Aura",heroTitle:"Olá, eu sou o Daniel Couto",heroLead:"Sou jogador de futebol e criador da Aura — uma marca de roupa motivacional feita para te inspirar a correr atrás dos teus objetivos todos os dias.",visitAuraBtn:"Visitar a Aura",mySocialsBtn:"Minhas Redes",aboutTitle:"Sobre mim",aboutText:"Jogo futebol e estou a construir a Aura como uma forma de partilhar disciplina, estilo e motivação com a minha comunidade. Aqui encontras os meus links oficiais — segue e vamos crescer juntos.",youtubeBtn:"YouTube",tiktokBtn:"TikTok",twitterBtn:"X / Twitter",storeBtn:"Visitar Loja",mTitle:"Tudo Começa Contigo",mText:"Foca no trabalho, mantém-te humilde e continua a avançar. A tua energia, o teu ritmo, o teu estilo — essa é a tua Aura.",footerText:"Feito com paixão — Aura"},
+      es:{eyebrow:"Spark Your Aura",heroTitle:"Hola, soy Daniel Couto",heroLead:"Soy jugador de fútbol y creador de Aura — una marca de ropa motivacional diseñada para inspirarte a perseguir tus metas cada día.",visitAuraBtn:"Visitar Aura",mySocialsBtn:"Mis Redes",aboutTitle:"Sobre mí",aboutText:"Juego al fútbol y estoy construyendo Aura como una forma de compartir disciplina, estilo y motivación con mi comunidad. Aquí encontrarás mis enlaces oficiales — sígueme y crezcamos juntos.",youtubeBtn:"YouTube",tiktokBtn:"TikTok",twitterBtn:"X / Twitter",storeBtn:"Visitar Tienda",mTitle:"Todo Empieza Contigo",mText:"Concéntrate en el trabajo, mantente humilde y sigue avanzando. Tu energía, tu ritmo, tu estilo — esa es tu Aura.",footerText:"Hecho con pasión — Aura"},
+      fr:{eyebrow:"Spark Your Aura",heroTitle:"Salut, je suis Daniel Couto",heroLead:"Je suis footballeur et créateur d’Aura — une marque de vêtements motivationnelle conçue pour t’inspirer à poursuivre tes objectifs chaque jour.",visitAuraBtn:"Visiter Aura",mySocialsBtn:"Mes Réseaux",aboutTitle:"À propos de moi",aboutText:"Je joue au football et je développe Aura pour partager discipline, style et motivation avec ma communauté. Ici tu trouveras mes liens officiels — suis-moi et grandissons ensemble.",youtubeBtn:"YouTube",tiktokBtn:"TikTok",twitterBtn:"X / Twitter",storeBtn:"Visiter la Boutique",mTitle:"Tout Commence Avec Toi",mText:"Concentre-toi sur le travail, reste humble et continue d’avancer. Ton énergie, ton rythme, ton style — c’est ton Aura.",footerText:"Fait avec passion — Aura"}
     };
 
     const els = {
-      eyebrow: document.getElementById('eyebrow'),
-      heroTitle: document.getElementById('heroTitle'),
-      heroLead: document.getElementById('heroLead'),
-      visitAuraBtn: document.getElementById('visitAuraBtn'),
-      mySocialsBtn: document.getElementById('mySocialsBtn'),
-      aboutTitle: document.getElementById('aboutTitle'),
-      aboutText: document.getElementById('aboutText'),
-      youtubeBtn: document.getElementById('youtubeBtn'),
-      tiktokBtn: document.getElementById('tiktokBtn'),
-      twitterBtn: document.getElementById('twitterBtn'),
-      storeBtn: document.getElementById('storeBtn'),
-      mTitle: document.getElementById('mTitle'),
-      mText: document.getElementById('mText'),
-      footerText: document.getElementById('footerText'),
-      select: document.getElementById('langSelect')
+      eyebrow:document.getElementById('eyebrow'),
+      heroTitle:document.getElementById('heroTitle'),
+      heroLead:document.getElementById('heroLead'),
+      visitAuraBtn:document.getElementById('visitAuraBtn'),
+      mySocialsBtn:document.getElementById('mySocialsBtn'),
+      aboutTitle:document.getElementById('aboutTitle'),
+      aboutText:document.getElementById('aboutText'),
+      youtubeBtn:document.getElementById('youtubeBtn'),
+      tiktokBtn:document.getElementById('tiktokBtn'),
+      twitterBtn:document.getElementById('twitterBtn'),
+      storeBtn:document.getElementById('storeBtn'),
+      mTitle:document.getElementById('mTitle'),
+      mText:document.getElementById('mText'),
+      footerText:document.getElementById('footerText'),
+      select:document.getElementById('langSelect')
     };
 
-    function applyLang(lang) {
-      const d = t[lang] || t.en;
-      els.eyebrow.textContent = d.eyebrow;
-      els.heroTitle.textContent = d.heroTitle;
-      els.heroLead.textContent = d.heroLead;
-      els.visitAuraBtn.textContent = d.visitAuraBtn;
-      els.mySocialsBtn.textContent = d.mySocialsBtn;
-      els.aboutTitle.textContent = d.aboutTitle;
-      els.aboutText.textContent = d.aboutText;
-      els.youtubeBtn.textContent = d.youtubeBtn;
-      els.tiktokBtn.textContent = d.tiktokBtn;
-      els.twitterBtn.textContent = d.twitterBtn;
-      els.storeBtn.textContent = d.storeBtn;
-      els.mTitle.textContent = d.mTitle;
-      els.mText.textContent = d.mText;
-      els.footerText.textContent = d.footerText;
-      localStorage.setItem('aura-lang', lang);
-      els.select.value = lang;
-      document.documentElement.lang = lang;
+    function applyLang(lang){
+      const d=t[lang]||t.en;
+      els.eyebrow.textContent=d.eyebrow;
+      els.heroTitle.textContent=d.heroTitle;
+      els.heroLead.textContent=d.heroLead;
+      els.visitAuraBtn.textContent=d.visitAuraBtn;
+      els.mySocialsBtn.textContent=d.mySocialsBtn;
+      els.aboutTitle.textContent=d.aboutTitle;
+      els.aboutText.textContent=d.aboutText;
+      els.youtubeBtn.textContent=d.youtubeBtn;
+      els.tiktokBtn.textContent=d.tiktokBtn;
+      els.twitterBtn.textContent=d.twitterBtn;
+      els.storeBtn.textContent=d.storeBtn;
+      els.mTitle.textContent=d.mTitle;
+      els.mText.textContent=d.mText;
+      els.footerText.textContent=d.footerText;
+      localStorage.setItem('aura-lang',lang);
+      els.select.value=lang;
+      document.documentElement.lang=lang;
     }
 
-    // carregar idioma guardado ou do browser
-    const savedLang = localStorage.getItem('aura-lang');
-    const browserLang = (navigator.language || 'en').slice(0,2);
-    applyLang(savedLang || (['en','pt','es','fr'].includes(browserLang) ? browserLang : 'en'));
-
-    // troca ao selecionar
-    els.select.addEventListener('change', (e)=> applyLang(e.target.value));
+    const savedLang=localStorage.getItem('aura-lang');
+    const browserLang=(navigator.language||'en').slice(0,2);
+    applyLang(savedLang||(['en','pt','es','fr'].includes(browserLang)?browserLang:'en'));
+    els.select.addEventListener('change',(e)=>applyLang(e.target.value));
   </script>
 </body>
 </html>
