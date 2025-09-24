@@ -34,7 +34,22 @@
       --card: rgba(255,255,255,0.08);
       --card-border: rgba(255,255,255,0.12);
       --glow: 0 0 40px rgba(155, 48, 255, 0.55);
-    }
+      }
+    @media (prefers-color-scheme: dark) {
+  :root {
+    --bg-start: #0e0e0e;
+    --bg-end: #1a1a1a;
+    --text: #f8f8f8;
+    --muted: #aaaaaa;
+    --btn: #2c2c2c;
+    --btn-text: #ffffff;
+    --link: #ffffff;
+    --card: rgba(255,255,255,0.05);
+    --card-border: rgba(255,255,255,0.15);
+    --glow: 0 0 30px rgba(255,255,255,0.1);
+  }
+}
+    
     * { box-sizing: border-box; }
     html, body { height: 100%; }
     body {
