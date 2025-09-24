@@ -37,6 +37,7 @@
         --shadow: 0 16px 48px rgba(0,0,0,0.55);
       }
     }
+    /* classe usada pelo botão manual */
     .dark {
       --bg-1: #0f0f13;
       --bg-2: #1a1824;
@@ -62,11 +63,19 @@
     header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; }
     .brand { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--surface-border); background: var(--chip); letter-spacing: .14em; font-weight: 800; text-transform: uppercase; font-size: 12px; }
     .tools { display: flex; gap: 10px; align-items: center; }
-    .toggle, .select {
-      background: var(--chip); color: var(--text); border: 1px solid var(--surface-border);
+    .toggle{ background: var(--chip); color: var(--text); border: 1px solid var(--surface-border); padding: 8px 12px; border-radius: 10px; font-weight: 600; cursor: pointer; }
+
+    /* seletor de línguas – sempre visível */
+    .select{
+      appearance: none; -webkit-appearance: none; -moz-appearance: none;
+      background-color: #ffffff; color: #2b2b2b;
+      border: 1px solid var(--surface-border);
       padding: 8px 12px; border-radius: 10px; font-weight: 600; cursor: pointer;
+      min-width: 110px;
     }
-    .select { appearance: none; }
+    .select option{ background-color:#ffffff; color:#2b2b2b; }
+    .dark .select{ background-color:#2c2c36; color:#ffffff; border-color:var(--surface-border); }
+    .dark .select option{ background-color:#2c2c36; color:#ffffff; }
 
     /* hero */
     .hero { text-align: center; padding: clamp(40px, 10vw, 96px) 0 36px; opacity: 0; transform: translateY(8px); animation: fadeUp .6s ease .05s forwards; }
@@ -109,14 +118,14 @@
     <header>
       <div class="brand">AURA</div>
       <div class="tools">
-        <!-- language switcher -->
+        <!-- seletor de línguas -->
         <select id="langSelect" class="select" aria-label="Language">
           <option value="en">🇬🇧 EN</option>
           <option value="pt">🇵🇹 PT</option>
           <option value="es">🇪🇸 ES</option>
           <option value="fr">🇫🇷 FR</option>
         </select>
-        <!-- dark mode toggle -->
+        <!-- dark mode -->
         <button id="darkToggle" class="toggle">🌙 Dark</button>
       </div>
     </header>
@@ -276,12 +285,12 @@
       document.documentElement.lang = lang;
     }
 
-    // load saved or auto language
+    // carregar idioma guardado ou do browser
     const savedLang = localStorage.getItem('aura-lang');
     const browserLang = (navigator.language || 'en').slice(0,2);
     applyLang(savedLang || (['en','pt','es','fr'].includes(browserLang) ? browserLang : 'en'));
 
-    // change handler
+    // troca ao selecionar
     els.select.addEventListener('change', (e)=> applyLang(e.target.value));
   </script>
 </body>
