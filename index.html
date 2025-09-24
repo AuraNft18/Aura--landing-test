@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg-1: #6a0dad;
@@ -22,7 +23,6 @@
       --chip: rgba(255,255,255,0.14);
       --shadow: 0 20px 60px rgba(0,0,0,0.35);
     }
-
     @media (prefers-color-scheme: dark) {
       :root {
         --bg-1: #0f0f13;
@@ -37,7 +37,6 @@
         --shadow: 0 16px 48px rgba(0,0,0,0.55);
       }
     }
-
     .dark {
       --bg-1: #0f0f13;
       --bg-2: #1a1824;
@@ -52,115 +51,57 @@
     }
 
     * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; font-family: Inter, sans-serif; color: var(--text);
+    html, body { height: 100%; margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--text);
       background: radial-gradient(900px 600px at 70% -10%, rgba(255,255,255,0.12), transparent 60%),
                   linear-gradient(140deg, var(--bg-1), var(--bg-2));
       transition: background 300ms ease, color 300ms ease;
     }
-
     .wrap { max-width: 1040px; margin: 0 auto; padding: 20px; }
 
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 8px 0;
+    /* header */
+    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--surface-border); background: var(--chip); letter-spacing: .14em; font-weight: 800; text-transform: uppercase; font-size: 12px; }
+    .tools { display: flex; gap: 10px; align-items: center; }
+    .toggle, .select {
+      background: var(--chip); color: var(--text); border: 1px solid var(--surface-border);
+      padding: 8px 12px; border-radius: 10px; font-weight: 600; cursor: pointer;
     }
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--surface-border);
-      background: var(--chip);
-      letter-spacing: 0.14em;
-      font-weight: 800;
-      text-transform: uppercase;
-      font-size: 12px;
-    }
-    .tools { display: flex; gap: 10px; }
-    .toggle {
-      background: var(--chip);
-      color: var(--text);
-      border: 1px solid var(--surface-border);
-      padding: 8px 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 600;
-    }
+    .select { appearance: none; }
 
-    .hero { text-align: center; padding: clamp(40px, 10vw, 96px) 0 36px; }
-    .eyebrow {
-      display: inline-block;
-      font-size: 12px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-    h1 {
-      margin: 0 0 12px;
-      font-size: clamp(34px, 7.8vw, 72px);
-      line-height: 1.05;
-      font-weight: 800;
-      text-shadow: 0 8px 24px rgba(0,0,0,0.28);
-    }
+    /* hero */
+    .hero { text-align: center; padding: clamp(40px, 10vw, 96px) 0 36px; opacity: 0; transform: translateY(8px); animation: fadeUp .6s ease .05s forwards; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .eyebrow { display: inline-block; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    h1 { margin: 0 0 12px; font-size: clamp(34px, 7.8vw, 72px); line-height: 1.05; font-weight: 800; text-shadow: 0 8px 24px rgba(0,0,0,.28); }
     .lead { margin: 0 auto; max-width: 760px; color: #efe9ff; font-size: clamp(16px, 2.2vw, 20px); line-height: 1.7; }
     .cta { margin-top: 26px; display: inline-flex; gap: 12px; flex-wrap: wrap; }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      text-decoration: none;
-      padding: 14px 20px;
-      border-radius: 16px;
-      font-weight: 800;
-      border: 1px solid var(--surface-border);
-      transition: transform .16s ease, box-shadow .2s ease, background .2s ease;
-      box-shadow: var(--shadow);
-    }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; padding: 14px 20px; border-radius: 16px; font-weight: 800; border: 1px solid var(--surface-border); transition: transform .16s ease, box-shadow .2s ease, background .2s ease; box-shadow: var(--shadow); }
     .btn.primary { background: var(--button); color: var(--button-text); }
     .btn.ghost { background: transparent; color: var(--text); }
+    .btn:hover { transform: translateY(-2px); }
 
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      border-radius: 22px;
-      box-shadow: var(--shadow);
-    }
+    /* cards / sections */
+    .card { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 22px; box-shadow: var(--shadow); }
     .section { padding: 22px; }
     .section h2 { margin: 0 0 8px; font-size: clamp(22px, 3.2vw, 28px); }
     .section p { margin: 0; color: #f1ebff; line-height: 1.8; }
 
+    /* socials grid */
     .socials { margin-top: 18px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .social {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      border-radius: 16px;
-      background: var(--chip);
-      border: 1px solid var(--surface-border);
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 700;
-      box-shadow: var(--shadow);
-      min-height: 56px;
-    }
+    .social { display: flex; align-items: center; justify-content: center; padding: 16px; border-radius: 16px; background: var(--chip); border: 1px solid var(--surface-border); text-decoration: none; color: var(--text); font-weight: 700; box-shadow: var(--shadow); min-height: 56px; }
 
+    /* motivation */
+    .center { text-align: center; }
+    .m-title { font-size: clamp(26px, 5.8vw, 42px); margin: 0 0 10px; }
+    footer { text-align: center; padding: 36px 0 28px; color: var(--muted); font-size: 12px; }
+
+    /* responsive */
     @media (max-width: 720px) {
       .wrap { padding: 16px; }
       .cta { width: 100%; }
       .btn { flex: 1 1 auto; width: 100%; }
       .socials { grid-template-columns: repeat(2, 1fr); }
     }
-
-    .center { text-align: center; }
-    .m-title { font-size: clamp(26px, 5.8vw, 42px); margin: 0 0 10px; }
-    footer { text-align: center; padding: 36px 0 28px; color: var(--muted); font-size: 12px; }
   </style>
 </head>
 <body>
@@ -168,59 +109,180 @@
     <header>
       <div class="brand">AURA</div>
       <div class="tools">
+        <!-- language switcher -->
+        <select id="langSelect" class="select" aria-label="Language">
+          <option value="en">🇬🇧 EN</option>
+          <option value="pt">🇵🇹 PT</option>
+          <option value="es">🇪🇸 ES</option>
+          <option value="fr">🇫🇷 FR</option>
+        </select>
+        <!-- dark mode toggle -->
         <button id="darkToggle" class="toggle">🌙 Dark</button>
       </div>
     </header>
 
     <section class="hero">
-      <span class="eyebrow">Spark Your Aura</span>
-      <h1>Hi, I'm Daniel Couto</h1>
-      <p class="lead">
+      <span class="eyebrow" id="eyebrow">Spark Your Aura</span>
+      <h1 id="heroTitle">Hi, I'm Daniel Couto</h1>
+      <p class="lead" id="heroLead">
         I'm a football player and the creator of Aura — a motivational clothing brand built to inspire you to chase your goals every day.
       </p>
       <div class="cta">
-        <a class="btn primary" href="https://www.auraclothe.com/en" target="_blank" rel="noopener">Visit Aura</a>
-        <a class="btn ghost" href="#links">My Socials</a>
+        <a class="btn primary" id="visitAuraBtn" href="https://www.auraclothe.com/en" target="_blank" rel="noopener">Visit Aura</a>
+        <a class="btn ghost" id="mySocialsBtn" href="#links">My Socials</a>
       </div>
     </section>
 
     <section class="card section">
-      <h2>About me</h2>
-      <p>
+      <h2 id="aboutTitle">About me</h2>
+      <p id="aboutText">
         I play football and I’m building Aura as a way to share discipline, style, and motivation with my community. Here you’ll find my official links — follow along and let’s grow together.
       </p>
 
       <div id="links" class="socials">
-        <a class="social" href="https://youtube.com/@goatfootballoficial?si=RIN8Fr6g8fCLbt5H" target="_blank" rel="noopener">YouTube</a>
-        <a class="social" href="https://www.tiktok.com/@d18couto?_t=ZG-8zwFMgc9nAO&_r=1" target="_blank" rel="noopener">TikTok</a>
-        <a class="social" href="https://x.com/Daniel131117?t=Jwsff3IbBoTXixBnkSCoIQ&s=09" target="_blank" rel="noopener">X / Twitter</a>
-        <a class="social" href="https://www.auraclothe.com/en" target="_blank" rel="noopener">Visit Store</a>
+        <a class="social" id="youtubeBtn" href="https://youtube.com/@goatfootballoficial?si=RIN8Fr6g8fCLbt5H" target="_blank" rel="noopener">YouTube</a>
+        <a class="social" id="tiktokBtn" href="https://www.tiktok.com/@d18couto?_t=ZG-8zwFMgc9nAO&_r=1" target="_blank" rel="noopener">TikTok</a>
+        <a class="social" id="twitterBtn" href="https://x.com/Daniel131117?t=Jwsff3IbBoTXixBnkSCoIQ&s=09" target="_blank" rel="noopener">X / Twitter</a>
+        <a class="social" id="storeBtn" href="https://www.auraclothe.com/en" target="_blank" rel="noopener">Visit Store</a>
       </div>
     </section>
 
     <section class="card section center" style="margin-top:18px;">
-      <h3 class="m-title">Everything Starts With You</h3>
-      <p>Focus on the work, stay humble, and keep moving forward. Your energy, your rhythm, your style — that’s your Aura.</p>
+      <h3 class="m-title" id="mTitle">Everything Starts With You</h3>
+      <p id="mText">Focus on the work, stay humble, and keep moving forward. Your energy, your rhythm, your style — that’s your Aura.</p>
     </section>
 
-    <footer>Built with passion — Aura</footer>
+    <footer id="footerText">Built with passion — Aura</footer>
   </div>
 
   <script>
-    const btn = document.getElementById('darkToggle');
-    const stored = localStorage.getItem('aura-theme');
-    if (stored === 'dark') document.body.classList.add('dark');
-
-    function updateBtn(){
-      btn.textContent = document.body.classList.contains('dark') ? '☀️ Light' : '🌙 Dark';
-    }
-    updateBtn();
-
-    btn.addEventListener('click', () => {
+    // ----- DARK MODE (toggle + remember) -----
+    const darkBtn = document.getElementById('darkToggle');
+    const savedTheme = localStorage.getItem('aura-theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) document.body.classList.add('dark');
+    const setDarkLabel = () => darkBtn.textContent = document.body.classList.contains('dark') ? '☀️ Light' : '🌙 Dark';
+    setDarkLabel();
+    darkBtn.addEventListener('click', () => {
       document.body.classList.toggle('dark');
       localStorage.setItem('aura-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-      updateBtn();
+      setDarkLabel();
     });
+
+    // ----- I18N (EN, PT, ES, FR) -----
+    const t = {
+      en: {
+        eyebrow: "Spark Your Aura",
+        heroTitle: "Hi, I'm Daniel Couto",
+        heroLead: "I'm a football player and the creator of Aura — a motivational clothing brand built to inspire you to chase your goals every day.",
+        visitAuraBtn: "Visit Aura",
+        mySocialsBtn: "My Socials",
+        aboutTitle: "About me",
+        aboutText: "I play football and I’m building Aura as a way to share discipline, style, and motivation with my community. Here you’ll find my official links — follow along and let’s grow together.",
+        youtubeBtn: "YouTube",
+        tiktokBtn: "TikTok",
+        twitterBtn: "X / Twitter",
+        storeBtn: "Visit Store",
+        mTitle: "Everything Starts With You",
+        mText: "Focus on the work, stay humble, and keep moving forward. Your energy, your rhythm, your style — that’s your Aura.",
+        footerText: "Built with passion — Aura"
+      },
+      pt: {
+        eyebrow: "Spark Your Aura",
+        heroTitle: "Olá, eu sou o Daniel Couto",
+        heroLead: "Sou jogador de futebol e criador da Aura — uma marca de roupa motivacional feita para te inspirar a correr atrás dos teus objetivos todos os dias.",
+        visitAuraBtn: "Visitar a Aura",
+        mySocialsBtn: "Minhas Redes",
+        aboutTitle: "Sobre mim",
+        aboutText: "Jogo futebol e estou a construir a Aura como uma forma de partilhar disciplina, estilo e motivação com a minha comunidade. Aqui encontras os meus links oficiais — segue e vamos crescer juntos.",
+        youtubeBtn: "YouTube",
+        tiktokBtn: "TikTok",
+        twitterBtn: "X / Twitter",
+        storeBtn: "Visitar Loja",
+        mTitle: "Tudo Começa Contigo",
+        mText: "Foca no trabalho, mantém-te humilde e continua a avançar. A tua energia, o teu ritmo, o teu estilo — essa é a tua Aura.",
+        footerText: "Feito com paixão — Aura"
+      },
+      es: {
+        eyebrow: "Spark Your Aura",
+        heroTitle: "Hola, soy Daniel Couto",
+        heroLead: "Soy jugador de fútbol y creador de Aura — una marca de ropa motivacional diseñada para inspirarte a perseguir tus metas cada día.",
+        visitAuraBtn: "Visitar Aura",
+        mySocialsBtn: "Mis Redes",
+        aboutTitle: "Sobre mí",
+        aboutText: "Juego al fútbol y estoy construyendo Aura como una forma de compartir disciplina, estilo y motivación con mi comunidad. Aquí encontrarás mis enlaces oficiales — sígueme y crezcamos juntos.",
+        youtubeBtn: "YouTube",
+        tiktokBtn: "TikTok",
+        twitterBtn: "X / Twitter",
+        storeBtn: "Visitar Tienda",
+        mTitle: "Todo Empieza Contigo",
+        mText: "Concéntrate en el trabajo, mantente humilde y sigue avanzando. Tu energía, tu ritmo, tu estilo — esa es tu Aura.",
+        footerText: "Hecho con pasión — Aura"
+      },
+      fr: {
+        eyebrow: "Spark Your Aura",
+        heroTitle: "Salut, je suis Daniel Couto",
+        heroLead: "Je suis footballeur et créateur d’Aura — une marque de vêtements motivationnelle conçue pour t’inspirer à poursuivre tes objectifs chaque jour.",
+        visitAuraBtn: "Visiter Aura",
+        mySocialsBtn: "Mes Réseaux",
+        aboutTitle: "À propos de moi",
+        aboutText: "Je joue au football et je développe Aura pour partager discipline, style et motivation avec ma communauté. Ici tu trouveras mes liens officiels — suis-moi et grandissons ensemble.",
+        youtubeBtn: "YouTube",
+        tiktokBtn: "TikTok",
+        twitterBtn: "X / Twitter",
+        storeBtn: "Visiter la Boutique",
+        mTitle: "Tout Commence Avec Toi",
+        mText: "Concentre-toi sur le travail, reste humble et continue d’avancer. Ton énergie, ton rythme, ton style — c’est ton Aura.",
+        footerText: "Fait avec passion — Aura"
+      }
+    };
+
+    const els = {
+      eyebrow: document.getElementById('eyebrow'),
+      heroTitle: document.getElementById('heroTitle'),
+      heroLead: document.getElementById('heroLead'),
+      visitAuraBtn: document.getElementById('visitAuraBtn'),
+      mySocialsBtn: document.getElementById('mySocialsBtn'),
+      aboutTitle: document.getElementById('aboutTitle'),
+      aboutText: document.getElementById('aboutText'),
+      youtubeBtn: document.getElementById('youtubeBtn'),
+      tiktokBtn: document.getElementById('tiktokBtn'),
+      twitterBtn: document.getElementById('twitterBtn'),
+      storeBtn: document.getElementById('storeBtn'),
+      mTitle: document.getElementById('mTitle'),
+      mText: document.getElementById('mText'),
+      footerText: document.getElementById('footerText'),
+      select: document.getElementById('langSelect')
+    };
+
+    function applyLang(lang) {
+      const d = t[lang] || t.en;
+      els.eyebrow.textContent = d.eyebrow;
+      els.heroTitle.textContent = d.heroTitle;
+      els.heroLead.textContent = d.heroLead;
+      els.visitAuraBtn.textContent = d.visitAuraBtn;
+      els.mySocialsBtn.textContent = d.mySocialsBtn;
+      els.aboutTitle.textContent = d.aboutTitle;
+      els.aboutText.textContent = d.aboutText;
+      els.youtubeBtn.textContent = d.youtubeBtn;
+      els.tiktokBtn.textContent = d.tiktokBtn;
+      els.twitterBtn.textContent = d.twitterBtn;
+      els.storeBtn.textContent = d.storeBtn;
+      els.mTitle.textContent = d.mTitle;
+      els.mText.textContent = d.mText;
+      els.footerText.textContent = d.footerText;
+      localStorage.setItem('aura-lang', lang);
+      els.select.value = lang;
+      document.documentElement.lang = lang;
+    }
+
+    // load saved or auto language
+    const savedLang = localStorage.getItem('aura-lang');
+    const browserLang = (navigator.language || 'en').slice(0,2);
+    applyLang(savedLang || (['en','pt','es','fr'].includes(browserLang) ? browserLang : 'en'));
+
+    // change handler
+    els.select.addEventListener('change', (e)=> applyLang(e.target.value));
   </script>
 </body>
 </html>
