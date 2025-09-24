@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    /* ===== THEME TOKENS (light base) ===== */
+    /* ===== THEME TOKENS ===== */
     :root{
       --bg-1:#6a0dad; --bg-2:#9b30ff;
       --surface:rgba(255,255,255,.08);
@@ -18,11 +18,6 @@
       --button:#fff; --button-text:#5b12a8;
       --chip:rgba(255,255,255,.14);
       --shadow:0 20px 60px rgba(0,0,0,.35);
-      /* subtle noise svg (avoids banding/seams on mobile) */
-      --noise:url('data:image/svg+xml;utf8,\
-<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140">\
-<filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" stitchTiles="stitch"/></filter>\
-<rect width="140" height="140" filter="url(#n)" opacity="0.03"/></svg>');
     }
     html[data-theme="dark"]{
       --bg-1:#0f0f13; --bg-2:#1a1824;
@@ -32,26 +27,21 @@
       --button:#2c2c36; --button-text:#fff;
       --chip:rgba(255,255,255,.12);
       --shadow:0 16px 48px rgba(0,0,0,.55);
-      --noise:url('data:image/svg+xml;utf8,\
-<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140">\
-<filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" stitchTiles="stitch"/></filter>\
-<rect width="140" height="140" filter="url(#n)" opacity="0.04"/></svg>');
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
-      /* single gradient + tiled noise overlay (no fixed layers) */
-      background:
-        var(--noise) repeat,
-        linear-gradient(145deg,var(--bg-1) 0%, var(--bg-2) 100%);
-      background-size: 140px 140px, cover;
-      background-attachment: scroll, scroll;
+      background: linear-gradient(160deg,var(--bg-1) 0%, var(--bg-2) 100%);
+      background-attachment: scroll;
+      background-size: cover;
       transition: background .3s ease, color .3s ease;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      overflow-x:hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
     .wrap{max-width:1040px;margin:0 auto;padding:20px}
@@ -155,7 +145,6 @@
   </div>
 
   <script>
-    /* ===== DARK MODE (mobile friendly) ===== */
     const htmlEl = document.documentElement;
     const darkBtn = document.getElementById('darkToggle');
 
@@ -169,7 +158,7 @@
 
     function updateDarkLabel(){
       const isDark = htmlEl.getAttribute('data-theme') === 'dark';
-      darkBtn.textContent = isDark ? '☀ Light' : '🌙 Dark';
+      darkBtn.textContent = isDark ? '☀️ Light' : '🌙 Dark';
     }
     darkBtn.addEventListener('click', ()=>{
       const next = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
@@ -178,7 +167,7 @@
       updateDarkLabel();
     }, {passive:true});
 
-    /* ===== LANG SWITCH (EN/PT/ES/FR) ===== */
+    /* ===== LANG SWITCH ===== */
     const t = {
       en:{eyebrow:"Spark Your Aura",heroTitle:"Hi, I'm Daniel Couto",heroLead:"I'm a football player and the creator of Aura — a motivational clothing brand built to inspire you to chase your goals every day.",visitAuraBtn:"Visit Aura",mySocialsBtn:"My Socials",aboutTitle:"About me",aboutText:"I play football and I’m building Aura as a way to share discipline, style, and motivation with my community. Here you’ll find my official links — follow along and let’s grow together.",youtubeBtn:"YouTube",tiktokBtn:"TikTok",twitterBtn:"X / Twitter",storeBtn:"Visit Store",mTitle:"Everything Starts With You",mText:"Focus on the work, stay humble, and keep moving forward. Your energy, your rhythm, your style — that’s your Aura.",footerText:"Built with passion — Aura"},
       pt:{eyebrow:"Spark Your Aura",heroTitle:"Olá, eu sou o Daniel Couto",heroLead:"Sou jogador de futebol e criador da Aura — uma marca de roupa motivacional feita para te inspirar a correr atrás dos teus objetivos todos os dias.",visitAuraBtn:"Visitar a Aura",mySocialsBtn:"Minhas Redes",aboutTitle:"Sobre mim",aboutText:"Jogo futebol e estou a construir a Aura como uma forma de partilhar disciplina, estilo e motivação com a minha comunidade. Aqui encontras os meus links oficiais — segue e vamos crescer juntos.",youtubeBtn:"YouTube",tiktokBtn:"TikTok",twitterBtn:"X / Twitter",storeBtn:"Visitar Loja",mTitle:"Tudo Começa Contigo",mText:"Foca no trabalho, mantém-te humilde e continua a avançar. A tua energia, o teu ritmo, o teu estilo — essa é a tua Aura.",footerText:"Feito com paixão — Aura"},
