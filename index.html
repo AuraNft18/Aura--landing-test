@@ -9,90 +9,80 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    /* ===== THEME TOKENS ===== */
     :root{
-      --bg-1:#6a0dad; --bg-2:#9b30ff;
-      --surface:rgba(255,255,255,.08);
-      --surface-border:rgba(255,255,255,.12);
-      --text:#f5f3ff; --muted:#dbd5ff;
-      --button:#fff; --button-text:#5b12a8;
-      --chip:rgba(255,255,255,.14);
-      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --text:#f5f3ff;
+      --muted:#dcd6ff;
+      --card-bg:rgba(0,0,0,0.55);
+      --btn-bg:#ffffff;
+      --btn-text:#5b12a8;
     }
     html[data-theme="dark"]{
-      --bg-1:#0f0f13; --bg-2:#1a1824;
-      --surface:rgba(255,255,255,.06);
-      --surface-border:rgba(255,255,255,.16);
-      --text:#f8f8ff; --muted:#bcb7d9;
-      --button:#2c2c36; --button-text:#fff;
-      --chip:rgba(255,255,255,.12);
-      --shadow:0 16px 48px rgba(0,0,0,.55);
+      --text:#f8f8ff;
+      --muted:#c7c3f1;
+      --card-bg:rgba(0,0,0,0.65);
+      --btn-bg:#2c2c36;
+      --btn-text:#fff;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;}
     body{
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      font-family:'Inter',sans-serif;
       color:var(--text);
-      background: linear-gradient(160deg,var(--bg-1) 0%, var(--bg-2) 100%);
-      background-attachment: scroll;
-      background-size: cover;
+      background:url(bg.jpg) no-repeat center center fixed;
+      background-size:cover;
+      backdrop-filter: blur(4px);
       transition: background .3s ease, color .3s ease;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
+      -webkit-font-smoothing:antialiased;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.55);
+      z-index:-1;
+    }
+    .wrap{max-width:1024px;margin:auto;padding:20px}
+
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
+    .brand{background:rgba(255,255,255,0.15);padding:10px 18px;border-radius:999px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;}
+    .tools{display:flex;gap:10px;align-items:center;}
+    .toggle,.select{
+      padding:10px 16px;border:none;border-radius:12px;cursor:pointer;font-weight:600;
+      background:rgba(255,255,255,0.2);color:var(--text);
+      backdrop-filter:blur(6px);
+    }
+    .select option{color:#000;}
+
+    .hero{text-align:center;padding:60px 0;}
+    .eyebrow{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+    h1{font-size:clamp(36px,7vw,70px);margin:10px 0;font-weight:800;text-shadow:0 4px 14px rgba(0,0,0,0.4);}
+    .lead{max-width:720px;margin:auto;font-size:18px;color:var(--muted);}
+    .cta{display:flex;justify-content:center;gap:12px;margin-top:24px;flex-wrap:wrap;}
+    .btn{
+      text-decoration:none;padding:14px 22px;border-radius:14px;font-weight:700;
+      background:var(--btn-bg);color:var(--btn-text);
+      transition:all .2s ease;
+    }
+    .btn:hover{transform:translateY(-2px);opacity:.9;}
+
+    .card{
+      background:var(--card-bg);
+      border-radius:20px;
+      padding:24px;
+      margin-top:30px;
+      backdrop-filter:blur(10px);
+    }
+    .card h2{margin-bottom:10px;}
+    .socials{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;}
+    .social{
+      background:rgba(255,255,255,0.12);
+      border-radius:14px;padding:16px;text-align:center;text-decoration:none;
+      font-weight:700;color:var(--text);
     }
 
-    .wrap{max-width:1040px;margin:0 auto;padding:20px}
-
-    /* header */
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
-    .brand{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;border:1px solid var(--surface-border);background:var(--chip);letter-spacing:.14em;font-weight:800;text-transform:uppercase;font-size:12px}
-    .tools{display:flex;gap:10px;align-items:center}
-    .toggle{background:var(--chip);color:var(--text);border:1px solid var(--surface-border);padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer;touch-action:manipulation;user-select:none;-webkit-tap-highlight-color:transparent}
-
-    /* language select visível */
-    .select{appearance:none;-webkit-appearance:none;-moz-appearance:none;background:#fff;color:#2b2b2b;border:1px solid var(--surface-border);padding:10px 12px;border-radius:10px;font-weight:600;cursor:pointer;min-width:110px}
-    .select option{background:#fff;color:#2b2b2b}
-    html[data-theme="dark"] .select{background:#2c2c36;color:#fff;border-color:var(--surface-border)}
-    html[data-theme="dark"] .select option{background:#2c2c36;color:#fff}
-
-    /* hero */
-    .hero{text-align:center;padding:clamp(40px,10vw,96px) 0 36px;opacity:0;transform:translateY(8px);animation:fadeUp .6s ease .05s forwards}
-    @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-    .eyebrow{display:inline-block;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
-    h1{margin:0 0 12px;font-size:clamp(34px,7.8vw,72px);line-height:1.05;font-weight:800;text-shadow:0 8px 24px rgba(0,0,0,.28)}
-    .lead{margin:0 auto;max-width:760px;color:#efe9ff;font-size:clamp(16px,2.2vw,20px);line-height:1.7}
-    .cta{margin-top:26px;display:inline-flex;gap:12px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;padding:14px 20px;border-radius:16px;font-weight:800;border:1px solid var(--surface-border);transition:transform .16s ease,box-shadow .2s ease,background .2s ease;box-shadow:var(--shadow)}
-    .btn.primary{background:var(--button);color:var(--button-text)}
-    .btn.ghost{background:transparent;color:var(--text)}
-    .btn:hover{transform:translateY(-2px)}
-
-    /* cards */
-    .card{background:var(--surface);border:1px solid var(--surface-border);border-radius:22px;box-shadow:var(--shadow)}
-    .section{padding:22px}
-    .section h2{margin:0 0 8px;font-size:clamp(22px,3.2vw,28px)}
-    .section p{margin:0;color:#f1ebff;line-height:1.8}
-
-    /* socials grid */
-    .socials{margin-top:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-    .social{display:flex;align-items:center;justify-content:center;padding:16px;border-radius:16px;background:var(--chip);border:1px solid var(--surface-border);text-decoration:none;color:var(--text);font-weight:700;box-shadow:var(--shadow);min-height:56px}
-
-    /* motivation */
-    .center{text-align:center}
-    .m-title{font-size:clamp(26px,5.8vw,42px);margin:0 0 10px}
-    footer{text-align:center;padding:36px 0 28px;color:var(--muted);font-size:12px}
-
-    /* responsive */
-    @media (max-width:720px){
-      .wrap{padding:16px}
-      .cta{width:100%}
-      .btn{flex:1 1 auto;width:100%}
-      .socials{grid-template-columns:repeat(2,1fr)}
-      .toggle,.select{padding:12px 14px}
-    }
+    .center{text-align:center;}
+    footer{margin-top:40px;text-align:center;color:var(--muted);font-size:13px;}
   </style>
 </head>
 <body>
@@ -100,44 +90,40 @@
     <header>
       <div class="brand">AURA</div>
       <div class="tools">
-        <select id="langSelect" class="select" aria-label="Language">
+        <select id="langSelect" class="select">
           <option value="en">🇬🇧 EN</option>
           <option value="pt">🇵🇹 PT</option>
           <option value="es">🇪🇸 ES</option>
           <option value="fr">🇫🇷 FR</option>
         </select>
-        <button id="darkToggle" class="toggle" type="button">🌙 Dark</button>
+        <button id="darkToggle" class="toggle">🌙 Dark</button>
       </div>
     </header>
 
     <section class="hero">
-      <span class="eyebrow" id="eyebrow">Spark Your Aura</span>
+      <div class="eyebrow" id="eyebrow">SPARK YOUR AURA</div>
       <h1 id="heroTitle">Hi, I'm Daniel Couto</h1>
-      <p class="lead" id="heroLead">
-        I'm a football player and the creator of Aura — a motivational clothing brand built to inspire you to chase your goals every day.
-      </p>
+      <p class="lead" id="heroLead">I'm a football player and the creator of Aura — a motivational clothing brand built to inspire you to chase your goals every day.</p>
       <div class="cta">
-        <a class="btn primary" id="visitAuraBtn" href="https://www.auraclothe.com/en" target="_blank" rel="noopener">Visit Aura</a>
-        <a class="btn ghost" id="mySocialsBtn" href="#links">My Socials</a>
+        <a href="https://www.auraclothe.com/en" target="_blank" rel="noopener" class="btn" id="visitAuraBtn">Visit Aura</a>
+        <a href="#links" class="btn" id="mySocialsBtn">My Socials</a>
       </div>
     </section>
 
-    <section class="card section">
+    <section class="card">
       <h2 id="aboutTitle">About me</h2>
-      <p id="aboutText">
-        I play football and I’m building Aura as a way to share discipline, style, and motivation with my community. Here you’ll find my official links — follow along and let’s grow together.
-      </p>
+      <p id="aboutText">I play football and I’m building Aura as a way to share discipline, style, and motivation with my community. Here you’ll find my official links — follow along and let’s grow together.</p>
 
       <div id="links" class="socials">
-        <a class="social" id="youtubeBtn" href="https://youtube.com/@goatfootballoficial?si=RIN8Fr6g8fCLbt5H" target="_blank" rel="noopener">YouTube</a>
-        <a class="social" id="tiktokBtn" href="https://www.tiktok.com/@d18couto?_t=ZG-8zwFMgc9nAO&_r=1" target="_blank" rel="noopener">TikTok</a>
-        <a class="social" id="twitterBtn" href="https://x.com/Daniel131117?t=Jwsff3IbBoTXixBnkSCoIQ&s=09" target="_blank" rel="noopener">X / Twitter</a>
-        <a class="social" id="storeBtn" href="https://www.auraclothe.com/en" target="_blank" rel="noopener">Visit Store</a>
+        <a href="https://youtube.com/@goatfootballoficial?si=RIN8Fr6g8fCLbt5H" target="_blank" class="social" id="youtubeBtn">YouTube</a>
+        <a href="https://www.tiktok.com/@d18couto?_t=ZG-8zwFMgc9nAO&_r=1" target="_blank" class="social" id="tiktokBtn">TikTok</a>
+        <a href="https://x.com/Daniel131117?t=Jwsff3IbBoTXixBnkSCoIQ&s=09" target="_blank" class="social" id="twitterBtn">X / Twitter</a>
+        <a href="https://www.auraclothe.com/en" target="_blank" class="social" id="storeBtn">Visit Store</a>
       </div>
     </section>
 
-    <section class="card section center" style="margin-top:18px;">
-      <h3 class="m-title" id="mTitle">Everything Starts With You</h3>
+    <section class="card center">
+      <h2 id="mTitle">Everything Starts With You</h2>
       <p id="mText">Focus on the work, stay humble, and keep moving forward. Your energy, your rhythm, your style — that’s your Aura.</p>
     </section>
 
@@ -145,29 +131,10 @@
   </div>
 
   <script>
-    const htmlEl = document.documentElement;
+    const html = document.documentElement;
     const darkBtn = document.getElementById('darkToggle');
+    const langSelect = document.getElementById('langSelect');
 
-    (function initTheme(){
-      const saved = localStorage.getItem('aura-theme');
-      const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const theme = saved || (sysDark ? 'dark' : 'light');
-      htmlEl.setAttribute('data-theme', theme);
-      updateDarkLabel();
-    })();
-
-    function updateDarkLabel(){
-      const isDark = htmlEl.getAttribute('data-theme') === 'dark';
-      darkBtn.textContent = isDark ? '☀️ Light' : '🌙 Dark';
-    }
-    darkBtn.addEventListener('click', ()=>{
-      const next = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      htmlEl.setAttribute('data-theme', next);
-      localStorage.setItem('aura-theme', next);
-      updateDarkLabel();
-    }, {passive:true});
-
-    /* ===== LANG SWITCH ===== */
     const t = {
       en:{eyebrow:"Spark Your Aura",heroTitle:"Hi, I'm Daniel Couto",heroLead:"I'm a football player and the creator of Aura — a motivational clothing brand built to inspire you to chase your goals every day.",visitAuraBtn:"Visit Aura",mySocialsBtn:"My Socials",aboutTitle:"About me",aboutText:"I play football and I’m building Aura as a way to share discipline, style, and motivation with my community. Here you’ll find my official links — follow along and let’s grow together.",youtubeBtn:"YouTube",tiktokBtn:"TikTok",twitterBtn:"X / Twitter",storeBtn:"Visit Store",mTitle:"Everything Starts With You",mText:"Focus on the work, stay humble, and keep moving forward. Your energy, your rhythm, your style — that’s your Aura.",footerText:"Built with passion — Aura"},
       pt:{eyebrow:"Spark Your Aura",heroTitle:"Olá, eu sou o Daniel Couto",heroLead:"Sou jogador de futebol e criador da Aura — uma marca de roupa motivacional feita para te inspirar a correr atrás dos teus objetivos todos os dias.",visitAuraBtn:"Visitar a Aura",mySocialsBtn:"Minhas Redes",aboutTitle:"Sobre mim",aboutText:"Jogo futebol e estou a construir a Aura como uma forma de partilhar disciplina, estilo e motivação com a minha comunidade. Aqui encontras os meus links oficiais — segue e vamos crescer juntos.",youtubeBtn:"YouTube",tiktokBtn:"TikTok",twitterBtn:"X / Twitter",storeBtn:"Visitar Loja",mTitle:"Tudo Começa Contigo",mText:"Foca no trabalho, mantém-te humilde e continua a avançar. A tua energia, o teu ritmo, o teu estilo — essa é a tua Aura.",footerText:"Feito com paixão — Aura"},
@@ -175,49 +142,27 @@
       fr:{eyebrow:"Spark Your Aura",heroTitle:"Salut, je suis Daniel Couto",heroLead:"Je suis footballeur et créateur d’Aura — une marque de vêtements motivationnelle conçue pour t’inspirer à poursuivre tes objectifs chaque jour.",visitAuraBtn:"Visiter Aura",mySocialsBtn:"Mes Réseaux",aboutTitle:"À propos de moi",aboutText:"Je joue au football et je développe Aura pour partager discipline, style et motivation avec ma communauté. Ici tu trouveras mes liens officiels — suis-moi et grandissons ensemble.",youtubeBtn:"YouTube",tiktokBtn:"TikTok",twitterBtn:"X / Twitter",storeBtn:"Visiter la Boutique",mTitle:"Tout Commence Avec Toi",mText:"Concentre-toi sur le travail, reste humble et continue d’avancer. Ton énergie, ton rythme, ton style — c’est ton Aura.",footerText:"Fait avec passion — Aura"}
     };
 
-    const els = {
-      eyebrow:document.getElementById('eyebrow'),
-      heroTitle:document.getElementById('heroTitle'),
-      heroLead:document.getElementById('heroLead'),
-      visitAuraBtn:document.getElementById('visitAuraBtn'),
-      mySocialsBtn:document.getElementById('mySocialsBtn'),
-      aboutTitle:document.getElementById('aboutTitle'),
-      aboutText:document.getElementById('aboutText'),
-      youtubeBtn:document.getElementById('youtubeBtn'),
-      tiktokBtn:document.getElementById('tiktokBtn'),
-      twitterBtn:document.getElementById('twitterBtn'),
-      storeBtn:document.getElementById('storeBtn'),
-      mTitle:document.getElementById('mTitle'),
-      mText:document.getElementById('mText'),
-      footerText:document.getElementById('footerText'),
-      select:document.getElementById('langSelect')
-    };
-
-    function applyLang(lang){
-      const d=t[lang]||t.en;
-      els.eyebrow.textContent=d.eyebrow;
-      els.heroTitle.textContent=d.heroTitle;
-      els.heroLead.textContent=d.heroLead;
-      els.visitAuraBtn.textContent=d.visitAuraBtn;
-      els.mySocialsBtn.textContent=d.mySocialsBtn;
-      els.aboutTitle.textContent=d.aboutTitle;
-      els.aboutText.textContent=d.aboutText;
-      els.youtubeBtn.textContent=d.youtubeBtn;
-      els.tiktokBtn.textContent=d.tiktokBtn;
-      els.twitterBtn.textContent=d.twitterBtn;
-      els.storeBtn.textContent=d.storeBtn;
-      els.mTitle.textContent=d.mTitle;
-      els.mText.textContent=d.mText;
-      els.footerText.textContent=d.footerText;
-      localStorage.setItem('aura-lang',lang);
-      els.select.value=lang;
-      document.documentElement.lang=lang;
+    const ids=["eyebrow","heroTitle","heroLead","visitAuraBtn","mySocialsBtn","aboutTitle","aboutText","youtubeBtn","tiktokBtn","twitterBtn","storeBtn","mTitle","mText","footerText"];
+    function applyLang(l){
+      const lang=t[l]||t.en;
+      ids.forEach(id=>document.getElementById(id).textContent=lang[id]);
+      localStorage.setItem('lang',l);
     }
 
-    const savedLang=localStorage.getItem('aura-lang');
-    const browserLang=(navigator.language||'en').slice(0,2);
-    applyLang(savedLang||(['en','pt','es','fr'].includes(browserLang)?browserLang:'en'));
-    els.select.addEventListener('change',(e)=>applyLang(e.target.value));
+    langSelect.addEventListener('change',e=>applyLang(e.target.value));
+    applyLang(localStorage.getItem('lang')||'en');
+
+    darkBtn.addEventListener('click',()=>{
+      const isDark=html.getAttribute('data-theme')==='dark';
+      html.setAttribute('data-theme',isDark?'light':'dark');
+      darkBtn.textContent=isDark?'🌙 Dark':'☀️ Light';
+      localStorage.setItem('theme',isDark?'light':'dark');
+    });
+
+    if(localStorage.getItem('theme')==='dark'){
+      html.setAttribute('data-theme','dark');
+      darkBtn.textContent='☀️ Light';
+    }
   </script>
 </body>
 </html>
